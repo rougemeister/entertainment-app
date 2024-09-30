@@ -27,7 +27,6 @@ export class SignInComponent {
     private authService: AuthService,
     private router: Router,
     private localStorageService: LocalStorageService,
-    @Inject(NOTYF) private notyf: Notyf
   ) {}
 
   ngOnInit(): void {
@@ -44,16 +43,12 @@ export class SignInComponent {
         next: (response) => {
           this.loginLoading = false;
           this.localStorageService.setItem('AUTH_TOKEN', response.token);
-          this.notyf.success('Signed in successfully');
+        
           this.router.navigate(['home']);
         },
         error: (error) => {
           this.loginLoading = false;
-          this.notyf.error(
-            error.error.message
-              ? error.error.message
-              : 'Error signing in. Please try again'
-          );
+      
         },
       });
     } else {
